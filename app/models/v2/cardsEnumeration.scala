@@ -63,4 +63,8 @@ object Playground extends App {
   deckAfterDrawing.cards(1) > deckAfterDrawing.cards(2)
 
   cardFromTheTop > deckAfterDrawing.cards(2)
+
+  deckAfterDrawing.cards.head.suit match { // doesn't create compilation warning
+    case Hearts => "serca"
+  }
 }

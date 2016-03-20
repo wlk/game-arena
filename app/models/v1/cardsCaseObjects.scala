@@ -61,7 +61,7 @@ object Deck {
 }
 
 object Playground extends App {
-  
+
   import Rank._
   import Suit._
 
@@ -88,4 +88,8 @@ object Playground extends App {
   deckAfterDrawing.cards(1) > deckAfterDrawing.cards(2)
 
   cardFromTheTop > deckAfterDrawing.cards(2)
+
+  deckAfterDrawing.cards.head.suit match { // creates a compilation warning
+    case Hearts => "serca"
+  }
 }
