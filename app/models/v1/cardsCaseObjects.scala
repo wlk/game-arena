@@ -1,4 +1,4 @@
-package models
+package models.v1
 
 import scala.util.Random
 
@@ -32,9 +32,10 @@ case object Queen extends Rank
 case object King extends Rank
 case object Ace extends Rank
 
-case class Card(suit: Suit, rank: Rank) {
-  import Rank._
+import Rank._
+import Suit._
 
+case class Card(suit: Suit, rank: Rank) {
   def isSameSuit(other: Card): Boolean = this.suit == other.suit
 
   def >(other: Card): Boolean = ranks.indexOf(this.rank) > ranks.indexOf(other.rank)
@@ -43,7 +44,7 @@ case class Card(suit: Suit, rank: Rank) {
 
 }
 
-case class Deck(cards: List[Card]){
+case class Deck(cards: List[Card]){ // for now using List here, maybe Set is better (?)
   require(isValid)
 
   def isEmpty = cards.isEmpty
@@ -52,18 +53,20 @@ case class Deck(cards: List[Card]){
 
   def draw: (Option[Card], Deck) = (cards.headOption, new Deck(cards.tail))
 
-  def isValid = cards.distinct == cards && cards.size <= 52
+  def isValid = cards.distinct == cards // checking for size is redundant (?)
 }
 
 object Deck {
-  import Suit._
-  import Rank._
-
-  val fullDeck: Deck = Deck(for (s <- suits; f <- ranks) yield Card(s, f))
+  val fullDeck: Deck = Deck(for (s <- suits; r <- ranks) yield Card(s, r))
 }
 
 
 object Playground extends App {
+  val aceOfSpades = Card(Spades, Ace)
+  val tenOfHearts = Card(Hearts, Ten)
+  aceOfSpades > tenOfHearts
+
+
   val deck1 = Deck.fullDeck
   println(deck1)
 
@@ -83,6 +86,4 @@ object Playground extends App {
   deckAfterDrawing.cards(1) > deckAfterDrawing.cards(2)
 
   cardFromTheTop > deckAfterDrawing.cards(2)
-
-
 }
