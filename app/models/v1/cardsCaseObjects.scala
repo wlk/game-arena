@@ -61,6 +61,10 @@ object Deck {
 }
 
 object Playground extends App {
+  
+  import Rank._
+  import Suit._
+
   val aceOfSpades = Card(Spades, Ace)
   val tenOfHearts = Card(Hearts, Ten)
   aceOfSpades > tenOfHearts
