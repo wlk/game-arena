@@ -44,7 +44,7 @@ case class Card(suit: Suit, rank: Rank) {
 
 }
 
-case class Deck(cards: List[Card]){ // for now using List here, maybe Set is better (?)
+case class Deck(cards: List[Card]) { // for now using List here, maybe Set is better (?)
   require(isValid)
 
   def isEmpty = cards.isEmpty
@@ -60,12 +60,10 @@ object Deck {
   val fullDeck: Deck = Deck(for (s <- suits; r <- ranks) yield Card(s, r))
 }
 
-
 object Playground extends App {
   val aceOfSpades = Card(Spades, Ace)
   val tenOfHearts = Card(Hearts, Ten)
   aceOfSpades > tenOfHearts
-
 
   val deck1 = Deck.fullDeck
   println(deck1)

@@ -1,5 +1,6 @@
 package models.v2
 
+import scala.util.Random
 
 object Suit extends Enumeration {
   val Clubs, Spades, Hearts, Diamonds = Value
@@ -8,8 +9,6 @@ object Suit extends Enumeration {
 object Rank extends Enumeration {
   val Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace = Value
 }
-
-import scala.util.Random
 
 case class Card(suit: Suit.Value, rank: Rank.Value) {
   def isSameSuit(other: Card): Boolean = this.suit == other.suit
@@ -20,7 +19,7 @@ case class Card(suit: Suit.Value, rank: Rank.Value) {
 
 }
 
-case class Deck(cards: List[Card]){
+case class Deck(cards: List[Card]) {
   require(isValid)
 
   def isEmpty = cards.isEmpty
@@ -32,17 +31,18 @@ case class Deck(cards: List[Card]){
   def isValid = cards.distinct == cards
 }
 
-object Deck{
+object Deck {
   val fullDeck: Deck = Deck((for (s <- Suit.values; r <- Rank.values) yield Card(s, r)).toList)
 }
 
 object Playground extends App {
+
   import Rank._
   import Suit._
+
   val aceOfSpades = Card(Spades, Ace)
   val tenOfHearts = Card(Hearts, Ten)
   aceOfSpades > tenOfHearts
-
 
   val deck1 = Deck.fullDeck
   println(deck1)
