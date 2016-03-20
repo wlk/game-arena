@@ -2,42 +2,87 @@ package models
 
 import scala.util.Random
 
+object Suit {
+  val suits = List(Clubs, Spades, Hearts, Diamonds)
+}
+
 sealed trait Suit
 case object Clubs extends Suit
 case object Spades extends Suit
 case object Hearts extends Suit
 case object Diamonds extends Suit
 
-sealed trait Face
-case object Two extends Face
-case object Three extends Face
-case object Four extends Face
-case object Five extends Face
-case object Six extends Face
-case object Seven extends Face
-case object Eight extends Face
-case object Nine extends Face
-case object Ten extends Face
-case object Jack extends Face
-case object Queen extends Face
-case object King extends Face
-case object Ace extends Face
+object Rank {
+  // Defines ordering of ranks
+  val ranks = List(Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace)
+}
 
-case class Card(suit: Suit, face: Face) {
+sealed trait Rank
+case object Two extends Rank
+case object Three extends Rank
+case object Four extends Rank
+case object Five extends Rank
+case object Six extends Rank
+case object Seven extends Rank
+case object Eight extends Rank
+case object Nine extends Rank
+case object Ten extends Rank
+case object Jack extends Rank
+case object Queen extends Rank
+case object King extends Rank
+case object Ace extends Rank
+
+case class Card(suit: Suit, rank: Rank) {
+  import Rank._
+
   def isSameSuit(other: Card): Boolean = this.suit == other.suit
-  def isSameFace(other: Card): Boolean = this.face == other.face
+
+  def >(other: Card): Boolean = ranks.indexOf(this.rank) > ranks.indexOf(other.rank)
+
+  def isPairWith(other: Card): Boolean = this.rank == other.rank
 
 }
 
 case class Deck(cards: List[Card]){
-  def shuffle = new Deck(Random.shuffle(cards))
+  require(isValid)
 
-  def draw = (cards.head, new Deck(cards.tail))
+  def isEmpty = cards.isEmpty
+
+  def shuffle: Deck = new Deck(Random.shuffle(cards))
+
+  def draw: (Option[Card], Deck) = (cards.headOption, new Deck(cards.tail))
+
+  def isValid = cards.distinct == cards && cards.size <= 52
 }
 
 object Deck {
-  val suits = List(Clubs, Spades, Hearts, Diamonds)
-  val faces = List(Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace)
+  import Suit._
+  import Rank._
 
-  val fullDeck: Deck = Deck(for (s <- suits; f <- faces) yield Card(s, f))
+  val fullDeck: Deck = Deck(for (s <- suits; f <- ranks) yield Card(s, f))
+}
+
+
+object Playground extends App {
+  val deck1 = Deck.fullDeck
+  println(deck1)
+
+  val shuffled = deck1.shuffle
+
+  val firstCard = shuffled.cards.head
+  val secondCard = shuffled.cards(1)
+
+  firstCard > secondCard
+
+  firstCard.isPairWith(secondCard)
+
+  val (maybeCardFromTheTop, deckAfterDrawing) = shuffled.draw
+
+  val cardFromTheTop = maybeCardFromTheTop.get // just a playground
+
+  deckAfterDrawing.cards(1) > deckAfterDrawing.cards(2)
+
+  cardFromTheTop > deckAfterDrawing.cards(2)
+
+
 }
