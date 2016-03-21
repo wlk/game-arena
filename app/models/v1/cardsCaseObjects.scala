@@ -7,9 +7,13 @@ object Suit {
 }
 
 sealed abstract class Suit
+
 case object Clubs extends Suit
+
 case object Spades extends Suit
+
 case object Hearts extends Suit
+
 case object Diamonds extends Suit
 
 object Rank {
@@ -18,22 +22,35 @@ object Rank {
 }
 
 sealed abstract class Rank
+
 case object Two extends Rank
+
 case object Three extends Rank
+
 case object Four extends Rank
+
 case object Five extends Rank
+
 case object Six extends Rank
+
 case object Seven extends Rank
+
 case object Eight extends Rank
+
 case object Nine extends Rank
+
 case object Ten extends Rank
+
 case object Jack extends Rank
+
 case object Queen extends Rank
+
 case object King extends Rank
+
 case object Ace extends Rank
 
-import Rank._
-import Suit._
+import models.v1.Rank._
+import models.v1.Suit._
 
 case class Card(suit: Suit, rank: Rank) {
   def isSameSuit(other: Card): Boolean = this.suit == other.suit
@@ -44,7 +61,8 @@ case class Card(suit: Suit, rank: Rank) {
 
 }
 
-case class Deck(cards: List[Card]) { // for now using List here, maybe Set is better (?)
+case class Deck(cards: List[Card]) {
+  // for now using List here, maybe Set is better (?)
   require(isValid)
 
   def isEmpty = cards.isEmpty
@@ -61,9 +79,6 @@ object Deck {
 }
 
 object Playground extends App {
-
-  import Rank._
-  import Suit._
 
   val aceOfSpades = Card(Spades, Ace)
   val tenOfHearts = Card(Hearts, Ten)
@@ -89,7 +104,7 @@ object Playground extends App {
 
   cardFromTheTop > deckAfterDrawing.cards(2)
 
-/*  deckAfterDrawing.cards.head.suit match { // creates a compilation warning
-    case Hearts => "serca"
-  }*/
+  /*  deckAfterDrawing.cards.head.suit match { // creates a compilation warning
+      case Hearts => "serca"
+    }*/
 }

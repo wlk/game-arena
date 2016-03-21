@@ -9,11 +9,41 @@ trait JsonMarshalling {
     def writes(s: Suit) = JsString(s.toString)
   }
 
-  implicit val rankFormat = new Writes[Rank] {
+  implicit val rankWrites = new Writes[Rank] {
     def writes(r: Rank) = JsString(r.toString)
   }
 
-  implicit val cardFormat = Json.writes[Card]
+  implicit val cardWrites = Json.writes[Card]
 
-  implicit val deckFormat = Json.writes[Deck]
+  implicit val deckWrites = Json.writes[Deck]
+
+  implicit val playerWrites = new Writes[Player] {
+    def writes(p: Player) = Json.obj(
+      "id" -> p.id,
+      "name" -> p.name,
+      "status" -> p.status,
+      "version" -> p.version,
+      "stack" -> p.stack,
+      "bet" -> p.bet,
+      "hole_cards" -> p.holeCards
+    )
+  }
+
+  implicit val gameStateWrites = new Writes[GameState] {
+    def writes(g: GameState) = Json.obj(
+      "tournament_id" -> g.tournamentId,
+      "game_id" -> g.gameId,
+      "round" -> g.round,
+      "bet_index" -> g.betIndex,
+      "small_blind" -> g.smallBlind,
+      "current_buy_in" -> g.currentBuyIn,
+      "pot" -> g.pot,
+      "minimum_raise" -> g.minimumRaise,
+      "dealer" -> g.dealer,
+      "orbits" -> g.orbits,
+      "in_action" -> g.inAction,
+      "players" -> g.players,
+      "community_cards" -> g.communityCards
+    )
+  }
 }
