@@ -6,13 +6,11 @@ import play.api.libs.json._
 trait JsonMarshalling {
 
   implicit val suitWrites = new Writes[Suit] {
-    def writes(s: Suit) = Json.obj(
-      "suit" -> s.toString)
+    def writes(s: Suit) = JsString(s.toString)
   }
 
   implicit val rankFormat = new Writes[Rank] {
-    def writes(r: Rank) = Json.obj(
-      "rank" -> r.toString)
+    def writes(r: Rank) = JsString(r.toString)
   }
 
   implicit val cardFormat = Json.writes[Card]
