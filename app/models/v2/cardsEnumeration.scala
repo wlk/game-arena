@@ -64,7 +64,7 @@ object Playground extends App {
 
   cardFromTheTop > deckAfterDrawing.cards(2)
 
-  deckAfterDrawing.cards.head.suit match { // doesn't create compilation warning
+/*  deckAfterDrawing.cards.head.suit match { // doesn't create compilation warning
     case Hearts => "serca"
-  }
+  }*/
 }

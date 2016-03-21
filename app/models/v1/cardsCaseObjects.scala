@@ -6,7 +6,7 @@ object Suit {
   val suits = List(Clubs, Spades, Hearts, Diamonds)
 }
 
-sealed trait Suit
+sealed abstract class Suit
 case object Clubs extends Suit
 case object Spades extends Suit
 case object Hearts extends Suit
@@ -17,7 +17,7 @@ object Rank {
   val ranks = List(Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace)
 }
 
-sealed trait Rank
+sealed abstract class Rank
 case object Two extends Rank
 case object Three extends Rank
 case object Four extends Rank
@@ -89,7 +89,7 @@ object Playground extends App {
 
   cardFromTheTop > deckAfterDrawing.cards(2)
 
-  deckAfterDrawing.cards.head.suit match { // creates a compilation warning
+/*  deckAfterDrawing.cards.head.suit match { // creates a compilation warning
     case Hearts => "serca"
-  }
+  }*/
 }
