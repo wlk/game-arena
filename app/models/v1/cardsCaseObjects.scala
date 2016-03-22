@@ -8,13 +8,21 @@ object Suit {
 
 sealed abstract class Suit
 
-case object Clubs extends Suit
+case object Clubs extends Suit {
+  override def toString = "clubs"
+}
 
-case object Spades extends Suit
+case object Spades extends Suit {
+  override def toString = "spades"
+}
 
-case object Hearts extends Suit
+case object Hearts extends Suit {
+  override def toString = "hearts"
+}
 
-case object Diamonds extends Suit
+case object Diamonds extends Suit {
+  override def toString = "diamonds"
+}
 
 object Rank {
   // Defines ordering of ranks
@@ -23,36 +31,62 @@ object Rank {
 
 sealed abstract class Rank
 
-case object Two extends Rank
+case object Two extends Rank {
+  override def toString = "2"
+}
 
-case object Three extends Rank
+case object Three extends Rank{
+  override def toString = "3"
+}
 
-case object Four extends Rank
+case object Four extends Rank{
+  override def toString = "4"
+}
 
-case object Five extends Rank
+case object Five extends Rank{
+  override def toString = "5"
+}
 
-case object Six extends Rank
+case object Six extends Rank{
+  override def toString = "6"
+}
 
-case object Seven extends Rank
+case object Seven extends Rank{
+  override def toString = "7"
+}
 
-case object Eight extends Rank
+case object Eight extends Rank{
+  override def toString = "8"
+}
 
-case object Nine extends Rank
+case object Nine extends Rank{
+  override def toString = "9"
+}
 
-case object Ten extends Rank
+case object Ten extends Rank{
+  override def toString = "10"
+}
 
-case object Jack extends Rank
+case object Jack extends Rank{
+  override def toString = "J"
+}
 
-case object Queen extends Rank
+case object Queen extends Rank{
+  override def toString = "Q"
+}
 
-case object King extends Rank
+case object King extends Rank{
+  override def toString = "K"
+}
 
-case object Ace extends Rank
+case object Ace extends Rank{
+  override def toString = "A"
+}
 
 import models.v1.Rank._
 import models.v1.Suit._
 
-case class Card(suit: Suit, rank: Rank) {
+case class Card(rank: Rank, suit: Suit) {
   def isSameSuit(other: Card): Boolean = this.suit == other.suit
 
   def >(other: Card): Boolean = ranks.indexOf(this.rank) > ranks.indexOf(other.rank)
@@ -75,13 +109,13 @@ case class Deck(cards: List[Card]) {
 }
 
 object Deck {
-  val fullDeck: Deck = Deck(for (s <- suits; r <- ranks) yield Card(s, r))
+  val fullDeck: Deck = Deck(for (r <- ranks; s <- suits) yield Card(r, s))
 }
 
 object Playground extends App {
 
-  val aceOfSpades = Card(Spades, Ace)
-  val tenOfHearts = Card(Hearts, Ten)
+  val aceOfSpades = Card(Ace, Spades)
+  val tenOfHearts = Card(Ten, Hearts)
   aceOfSpades > tenOfHearts
 
   val deck1 = Deck.fullDeck
