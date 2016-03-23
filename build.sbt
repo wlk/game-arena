@@ -4,6 +4,9 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
+scalacOptions ++= Seq("-feature", "-target:jvm-1.8")
+
+
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
