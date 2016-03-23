@@ -52,7 +52,7 @@ trait JsonMarshalling {
       "dealer" -> g.dealer,
       "orbits" -> g.orbits,
       "in_action" -> g.inAction,
-      "players" -> g.players,
+      "players" -> g.players, //intellij complains here, but it's correct and project compiles OK
       "community_cards" -> g.communityCards
     )
   }
