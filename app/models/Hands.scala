@@ -3,7 +3,7 @@ package models
 import models.v1._
 
 sealed abstract class Hand(val cards: List[Card]) {
-  protected val order: Int // this is my workaround for not being able to order types
+  protected val order: Int // this is my workaround for not being able to order types, but I'm sure there is a way to do this
   def >(other: Hand): Boolean = this.order > other.order
 }
 case class StraightFlush(override val cards: List[Card]) extends Hand(cards) {

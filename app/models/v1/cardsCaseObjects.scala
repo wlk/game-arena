@@ -4,6 +4,8 @@ import scala.util.Random
 
 object Suit {
   val suits = List(Clubs, Spades, Hearts, Diamonds)
+  private val fromStringMap: Map[String, Suit] = Map(Clubs.toString -> Clubs, Spades.toString -> Spades, Hearts.toString -> Hearts, Diamonds.toString -> Diamonds)
+  def apply(key: String) = fromStringMap(key)
 }
 
 sealed abstract class Suit
@@ -27,6 +29,10 @@ case object Diamonds extends Suit {
 object Rank {
   // Defines ordering of ranks
   val ranks = List(Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace)
+
+  private val fromStringMap: Map[String, Rank] = Map(Two.toString -> Two, Three.toString -> Three, Four.toString -> Four, Five.toString -> Five, Six.toString -> Six, Seven.toString -> Seven, Eight.toString -> Eight, Nine.toString -> Nine, Ten.toString -> Ten, Jack.toString -> Jack, Queen.toString -> Queen, King.toString -> King, Ace.toString -> Ace)
+
+  def apply(key: String) = fromStringMap(key)
 }
 
 sealed abstract class Rank

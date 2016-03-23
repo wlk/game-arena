@@ -5,17 +5,27 @@ import play.api.libs.json._
 
 trait JsonMarshalling {
 
-  implicit val suitWrites = new Writes[Suit] {
+  implicit val suitFormat = new Format[Suit] {
     def writes(s: Suit) = JsString(s.toString)
+
+    def reads(json: JsValue) = json match {
+      case JsNull => JsError()
+      case _ => JsSuccess(Suit(json.as[String]))
+    }
   }
 
-  implicit val rankWrites = new Writes[Rank] {
+  implicit val rankFormat = new Format[Rank] {
     def writes(r: Rank) = JsString(r.toString)
+
+    def reads(json: JsValue) = json match {
+      case JsNull => JsError()
+      case _ => JsSuccess(Rank(json.as[String]))
+    }
   }
 
-  implicit val cardWrites = Json.writes[Card]
+  implicit val cardFormat = Json.format[Card]
 
-  implicit val deckWrites = Json.writes[Deck]
+  implicit val deckFormat = Json.format[Deck]
 
   implicit val playerWrites = new Writes[Player] {
     def writes(p: Player) = Json.obj(
