@@ -41,51 +41,51 @@ case object Two extends Rank {
   override def toString = "2"
 }
 
-case object Three extends Rank{
+case object Three extends Rank {
   override def toString = "3"
 }
 
-case object Four extends Rank{
+case object Four extends Rank {
   override def toString = "4"
 }
 
-case object Five extends Rank{
+case object Five extends Rank {
   override def toString = "5"
 }
 
-case object Six extends Rank{
+case object Six extends Rank {
   override def toString = "6"
 }
 
-case object Seven extends Rank{
+case object Seven extends Rank {
   override def toString = "7"
 }
 
-case object Eight extends Rank{
+case object Eight extends Rank {
   override def toString = "8"
 }
 
-case object Nine extends Rank{
+case object Nine extends Rank {
   override def toString = "9"
 }
 
-case object Ten extends Rank{
+case object Ten extends Rank {
   override def toString = "10"
 }
 
-case object Jack extends Rank{
+case object Jack extends Rank {
   override def toString = "J"
 }
 
-case object Queen extends Rank{
+case object Queen extends Rank {
   override def toString = "Q"
 }
 
-case object King extends Rank{
+case object King extends Rank {
   override def toString = "K"
 }
 
-case object Ace extends Rank{
+case object Ace extends Rank {
   override def toString = "A"
 }
 

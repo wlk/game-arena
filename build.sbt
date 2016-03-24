@@ -1,13 +1,15 @@
-name := """game-arena"""
+import scalariform.formatter.preferences._
+import com.typesafe.sbt.SbtScalariform
 
+name := """game-arena"""
+organization := "com.wlangiewicz"
 version := "1.0-SNAPSHOT"
+scalaVersion := "2.11.8"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalacOptions ++= Seq("-feature", "-target:jvm-1.8")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature", "-target:jvm-1.8")
 
-
-scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
   jdbc,
@@ -17,3 +19,11 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+SbtScalariform.scalariformSettings
+
+ScalariformKeys.preferences := ScalariformKeys.preferences.value
+  .setPreference(AlignSingleLineCaseStatements, true)
+  .setPreference(DoubleIndentClassDeclaration, true)
+  .setPreference(SpacesAroundMultiImports, false)
+  .setPreference(CompactControlReadability, false)

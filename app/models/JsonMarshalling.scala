@@ -10,7 +10,7 @@ trait JsonMarshalling {
 
     def reads(json: JsValue) = json match {
       case JsNull => JsError()
-      case _ => JsSuccess(Suit(json.as[String]))
+      case _      => JsSuccess(Suit(json.as[String]))
     }
   }
 
@@ -19,7 +19,7 @@ trait JsonMarshalling {
 
     def reads(json: JsValue) = json match {
       case JsNull => JsError()
-      case _ => JsSuccess(Rank(json.as[String]))
+      case _      => JsSuccess(Rank(json.as[String]))
     }
   }
 

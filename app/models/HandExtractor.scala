@@ -5,5 +5,4 @@ package models
  */
 class HandExtractor {
 
-
 }

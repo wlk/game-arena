@@ -7,7 +7,6 @@ import models.{GameState, JsonMarshalling, Player}
 import play.api.libs.json.Json
 import play.api.mvc._
 
-
 @Singleton
 class GameController @Inject() extends Controller with JsonMarshalling {
 
