@@ -8,23 +8,17 @@ object Suit {
   def apply(key: String) = fromStringMap(key)
 }
 
-sealed abstract class Suit
-
-case object Clubs extends Suit {
-  override def toString = "clubs"
+sealed abstract class Suit(val value: String) {
+  override def toString = value
 }
 
-case object Spades extends Suit {
-  override def toString = "spades"
-}
+case object Clubs extends Suit("clubs")
 
-case object Hearts extends Suit {
-  override def toString = "hearts"
-}
+case object Spades extends Suit("spades")
 
-case object Diamonds extends Suit {
-  override def toString = "diamonds"
-}
+case object Hearts extends Suit("hearts")
+
+case object Diamonds extends Suit("diamonds")
 
 object Rank {
   // Defines ordering of ranks
