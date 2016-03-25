@@ -29,59 +29,35 @@ object Rank {
   def apply(key: String) = fromStringMap(key)
 }
 
-sealed abstract class Rank
-
-case object Two extends Rank {
-  override def toString = "2"
+sealed abstract class Rank(val value: String) {
+  override def toString = value
 }
 
-case object Three extends Rank {
-  override def toString = "3"
-}
+case object Two extends Rank("2")
 
-case object Four extends Rank {
-  override def toString = "4"
-}
+case object Three extends Rank("3")
 
-case object Five extends Rank {
-  override def toString = "5"
-}
+case object Four extends Rank("4")
 
-case object Six extends Rank {
-  override def toString = "6"
-}
+case object Five extends Rank("5")
 
-case object Seven extends Rank {
-  override def toString = "7"
-}
+case object Six extends Rank("6")
 
-case object Eight extends Rank {
-  override def toString = "8"
-}
+case object Seven extends Rank("7")
 
-case object Nine extends Rank {
-  override def toString = "9"
-}
+case object Eight extends Rank("8")
 
-case object Ten extends Rank {
-  override def toString = "10"
-}
+case object Nine extends Rank("9")
 
-case object Jack extends Rank {
-  override def toString = "J"
-}
+case object Ten extends Rank("10")
 
-case object Queen extends Rank {
-  override def toString = "Q"
-}
+case object Jack extends Rank("J")
 
-case object King extends Rank {
-  override def toString = "K"
-}
+case object Queen extends Rank("Q")
 
-case object Ace extends Rank {
-  override def toString = "A"
-}
+case object King extends Rank("K")
+
+case object Ace extends Rank("A")
 
 import models.v1.Rank._
 import models.v1.Suit._
