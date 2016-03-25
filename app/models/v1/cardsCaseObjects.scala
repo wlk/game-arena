@@ -8,7 +8,8 @@ object Suit {
   def apply(key: String) = fromStringMap(key)
 }
 
-sealed abstract class Suit(val value: String) {
+// should be abstract, workaround for play-json-extensions
+sealed class Suit(val value: String) {
   override def toString = value
 }
 
@@ -29,7 +30,8 @@ object Rank {
   def apply(key: String) = fromStringMap(key)
 }
 
-sealed abstract class Rank(val value: String) {
+// should be abstract, workaround for play-json-extensions
+sealed class Rank(val value: String) {
   override def toString = value
 }
 
