@@ -15,6 +15,7 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
+  "com.github.tototoshi" %% "play-json-naming" % "1.1.0",
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test
 )
 
