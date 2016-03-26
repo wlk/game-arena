@@ -94,6 +94,7 @@ object Playground extends App {
 
   val aceOfSpades = Card(Ace, Spades)
   val tenOfHearts = Card(Ten, Hearts)
+  val twoOfSpades = Card(Two, Spades)
   aceOfSpades > tenOfHearts
 
   val deck1 = Deck.fullDeck
