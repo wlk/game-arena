@@ -17,7 +17,9 @@ libraryDependencies ++= Seq(
   ws,
   "com.github.tototoshi" %% "play-json-naming" % "1.1.0",
   "ai.x" %% "play-json-extensions" % "0.8.0",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.0-M16-SNAP3" % Test
+
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
