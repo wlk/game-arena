@@ -33,6 +33,9 @@ object Rank {
 // should be abstract, workaround for play-json-extensions
 sealed class Rank(val value: String) {
   override def toString = value
+
+  def >(other: Rank): Boolean = Rank.ranks.indexOf(this) > Rank.ranks.indexOf(other)
+
 }
 
 case object Two extends Rank("2")
@@ -67,7 +70,7 @@ import models.v1.Suit._
 case class Card(rank: Rank, suit: Suit) {
   def isSameSuit(other: Card): Boolean = this.suit == other.suit
 
-  def >(other: Card): Boolean = ranks.indexOf(this.rank) > ranks.indexOf(other.rank)
+  def >(other: Card): Boolean = this.rank > other.rank
 
   def isPairWith(other: Card): Boolean = this.rank == other.rank
 
