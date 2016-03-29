@@ -12,6 +12,8 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-featu
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
 
+herokuAppName in Compile := "warm-hamlet-57324"
+
 libraryDependencies ++= Seq(
   jdbc,
   cache,

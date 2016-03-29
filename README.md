@@ -7,3 +7,4 @@ This need appeared after I attended Lean Poker event on a conference, and after 
 
 
 
+Application is deployed here: https://warm-hamlet-57324.herokuapp.com
