@@ -11,3 +11,6 @@ cache:
     - $HOME/.m2/repository
     - $HOME/.sbt
     - $HOME/.ivy2
+
+deploy:
+  script: sbt stage deployHeroku
