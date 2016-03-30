@@ -17,8 +17,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   val onePairCards = List(Card(Seven, Spades), Card(Seven, Hearts), Card(King, Spades), Card(Four, Clubs), Card(Three, Spades))
 
   "HandExtractor" should "find straight flush" in {
-    handExtractor.isStraightFlush(straightFlushCards) shouldBe true
-    handExtractor.isFourOfAKind(straightFlushCards) shouldBe false
+    handExtractor.getStraightFlush(straightFlushCards) shouldBe Some(StraightFlush(straightFlushCards))
+    handExtractor.isFourOfAKind(straightFlushCards) shouldBe None
     handExtractor.isFullHouse(straightFlushCards) shouldBe false
     handExtractor.isFlush(straightFlushCards) shouldBe false
     handExtractor.isStraight(straightFlushCards) shouldBe false
@@ -28,8 +28,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "find four of a kind" in {
-    handExtractor.isStraightFlush(fourOfAKindCards) shouldBe false
-    handExtractor.isFourOfAKind(fourOfAKindCards) shouldBe true
+    handExtractor.getStraightFlush(fourOfAKindCards) shouldBe None
+    handExtractor.isFourOfAKind(fourOfAKindCards) shouldBe Some(FourOfAKind(List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Six, Spades))))
     handExtractor.isFullHouse(fourOfAKindCards) shouldBe false
     handExtractor.isFlush(fourOfAKindCards) shouldBe false
     handExtractor.isStraight(fourOfAKindCards) shouldBe false
@@ -39,8 +39,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "find full house" in {
-    handExtractor.isStraightFlush(fullHouseCards) shouldBe false
-    handExtractor.isFourOfAKind(fullHouseCards) shouldBe false
+    handExtractor.getStraightFlush(fullHouseCards) shouldBe None
+    handExtractor.isFourOfAKind(fullHouseCards) shouldBe None
     handExtractor.isFullHouse(fullHouseCards) shouldBe true
     handExtractor.isFlush(fullHouseCards) shouldBe false
     handExtractor.isStraight(fullHouseCards) shouldBe false
@@ -50,8 +50,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "find flush" in {
-    handExtractor.isStraightFlush(flushCards) shouldBe false
-    handExtractor.isFourOfAKind(flushCards) shouldBe false
+    handExtractor.getStraightFlush(flushCards) shouldBe None
+    handExtractor.isFourOfAKind(flushCards) shouldBe None
     handExtractor.isFullHouse(flushCards) shouldBe false
     handExtractor.isFlush(flushCards) shouldBe true
     handExtractor.isStraight(flushCards) shouldBe false
@@ -61,8 +61,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "find straight" in {
-    handExtractor.isStraightFlush(straightCards) shouldBe false
-    handExtractor.isFourOfAKind(straightCards) shouldBe false
+    handExtractor.getStraightFlush(straightCards) shouldBe None
+    handExtractor.isFourOfAKind(straightCards) shouldBe None
     handExtractor.isFullHouse(straightCards) shouldBe false
     handExtractor.isFlush(straightCards) shouldBe false
     handExtractor.isStraight(straightCards) shouldBe true
@@ -72,8 +72,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "find three of a kind" in {
-    handExtractor.isStraightFlush(threeOfAKind) shouldBe false
-    handExtractor.isFourOfAKind(threeOfAKind) shouldBe false
+    handExtractor.getStraightFlush(threeOfAKind) shouldBe None
+    handExtractor.isFourOfAKind(threeOfAKind) shouldBe None
     handExtractor.isFullHouse(threeOfAKind) shouldBe false
     handExtractor.isFlush(threeOfAKind) shouldBe false
     handExtractor.isStraight(threeOfAKind) shouldBe false
@@ -84,8 +84,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "find two pair" in {
-    handExtractor.isStraightFlush(twoPairCards) shouldBe false
-    handExtractor.isFourOfAKind(twoPairCards) shouldBe false
+    handExtractor.getStraightFlush(twoPairCards) shouldBe None
+    handExtractor.isFourOfAKind(twoPairCards) shouldBe None
     handExtractor.isFullHouse(twoPairCards) shouldBe false
     handExtractor.isFlush(twoPairCards) shouldBe false
     handExtractor.isStraight(twoPairCards) shouldBe false
@@ -95,8 +95,8 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   }
 
   it should "find one pair" in {
-    handExtractor.isStraightFlush(onePairCards) shouldBe false
-    handExtractor.isFourOfAKind(onePairCards) shouldBe false
+    handExtractor.getStraightFlush(onePairCards) shouldBe None
+    handExtractor.isFourOfAKind(onePairCards) shouldBe None
     handExtractor.isFullHouse(onePairCards) shouldBe false
     handExtractor.isFlush(onePairCards) shouldBe false
     handExtractor.isStraight(onePairCards) shouldBe false
