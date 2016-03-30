@@ -2,6 +2,9 @@ package models
 
 import models.v1._
 
+/*
+ I'm unsure if this is needed now, and what form this might take in the future, for now working with Lists
+ */
 sealed abstract class Hand(val cards: List[Card]) {
   protected val order: Int // this is my workaround for not being able to order types, but I'm sure there is a way to do this
   def >(other: Hand): Boolean = this.order > other.order
