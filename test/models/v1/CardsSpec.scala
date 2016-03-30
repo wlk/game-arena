@@ -54,4 +54,24 @@ class CardsSpec extends FlatSpec with Matchers {
     aceOfSpaces.isSameSuit(twoOfSpaces) shouldBe true
     twoOfSpaces.isSameSuit(aceOfSpaces) shouldBe true
   }
+
+  it should "remove drawn card from the deck" in {
+    val deck = Deck.fullDeck.shuffle
+
+    val (maybeCardFromTheTop, deckAfterDrawing) = deck.draw
+
+    maybeCardFromTheTop match {
+      case None       => fail
+      case Some(card) => deckAfterDrawing.cards should not contain card
+    }
+  }
+
+  it should "detect invalid decks" in {
+    val deck = Deck.fullDeck
+    deck.isValid shouldBe true
+
+    deck.shuffle.isValid shouldBe true
+
+    an[IllegalArgumentException] should be thrownBy Deck(List(Card(Ace, Spades), Card(Ace, Spades)))
+  }
 }

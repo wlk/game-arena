@@ -92,35 +92,3 @@ case class Deck(cards: List[Card]) {
 object Deck {
   val fullDeck: Deck = Deck(for (r <- ranks; s <- suits) yield Card(r, s))
 }
-
-object Playground extends App {
-
-  val aceOfSpades = Card(Ace, Spades)
-  val tenOfHearts = Card(Ten, Hearts)
-  val twoOfSpades = Card(Two, Spades)
-  aceOfSpades > tenOfHearts
-
-  val deck1 = Deck.fullDeck
-  println(deck1)
-
-  val shuffled = deck1.shuffle
-
-  val firstCard = shuffled.cards.head
-  val secondCard = shuffled.cards(1)
-
-  firstCard > secondCard
-
-  firstCard.isPairWith(secondCard)
-
-  val (maybeCardFromTheTop, deckAfterDrawing) = shuffled.draw
-
-  val cardFromTheTop = maybeCardFromTheTop.get // just a playground
-
-  deckAfterDrawing.cards(1) > deckAfterDrawing.cards(2)
-
-  cardFromTheTop > deckAfterDrawing.cards(2)
-
-  /*  deckAfterDrawing.cards.head.suit match { // creates a compilation warning
-      case Hearts => "serca"
-    }*/
-}
