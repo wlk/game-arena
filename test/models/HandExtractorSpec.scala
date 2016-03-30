@@ -3,8 +3,6 @@ package models
 import models.v1._
 import org.scalatest.{FlatSpec, Matchers}
 
-import scala.util.Random
-
 class HandExtractorSpec extends FlatSpec with Matchers {
 
   "HandExtractor" should "find straight flush" in {
@@ -17,6 +15,7 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.isStraight(cards) shouldBe false
     handExtractor.isThreeOfAKind(cards) shouldBe false
     handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isOnePair(cards) shouldBe false
   }
 
   it should "find four of a kind" in {
@@ -29,6 +28,7 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.isStraight(cards) shouldBe false
     handExtractor.isThreeOfAKind(cards) shouldBe false
     handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isOnePair(cards) shouldBe false
   }
 
   it should "find full house" in {
@@ -41,6 +41,7 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.isStraight(cards) shouldBe false
     handExtractor.isThreeOfAKind(cards) shouldBe false
     handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isOnePair(cards) shouldBe false
   }
 
   it should "find flush" in {
@@ -53,6 +54,7 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.isStraight(cards) shouldBe false
     handExtractor.isThreeOfAKind(cards) shouldBe false
     handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isOnePair(cards) shouldBe false
   }
 
   it should "find straight" in {
@@ -65,6 +67,7 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.isStraight(cards) shouldBe true
     handExtractor.isThreeOfAKind(cards) shouldBe false
     handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isOnePair(cards) shouldBe false
   }
 
   it should "find three of a kind" in {
@@ -77,6 +80,34 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.isStraight(cards) shouldBe false
     handExtractor.isThreeOfAKind(cards) shouldBe true
     handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isOnePair(cards) shouldBe false
+  }
+
+  it should "find two pair" in {
+    val cards = List(Card(Queen, Hearts), Card(Queen, Clubs), Card(Eight, Hearts), Card(Eight, Spades), Card(Two, Clubs))
+    val handExtractor = new HandExtractor
+    handExtractor.isStraightFlush(cards) shouldBe false
+    handExtractor.isFourOfAKind(cards) shouldBe false
+    handExtractor.isFullHouse(cards) shouldBe false
+    handExtractor.isFlush(cards) shouldBe false
+    handExtractor.isStraight(cards) shouldBe false
+    handExtractor.isThreeOfAKind(cards) shouldBe false
+    handExtractor.isTwoPair(cards) shouldBe true
+    handExtractor.isOnePair(cards) shouldBe false
+  }
+
+  it should "find one pair" in {
+    val cards = List(Card(Seven, Spades), Card(Seven, Hearts), Card(King, Spades), Card(Four, Clubs), Card(Three, Spades))
+    val handExtractor = new HandExtractor
+    handExtractor.isStraightFlush(cards) shouldBe false
+    handExtractor.isFourOfAKind(cards) shouldBe false
+    handExtractor.isFullHouse(cards) shouldBe false
+    handExtractor.isFlush(cards) shouldBe false
+    handExtractor.isStraight(cards) shouldBe false
+    handExtractor.isThreeOfAKind(cards) shouldBe false
+    handExtractor.isTwoPair(cards) shouldBe false
+    handExtractor.isOnePair(cards) shouldBe true
   }
 
 }

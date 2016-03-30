@@ -46,4 +46,8 @@ class HandExtractor {
     cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(1, 2, 2)
   }
 
+  def isOnePair(cards: List[Card]): Boolean = {
+    cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(1, 1, 1, 2)
+  }
+
 }
