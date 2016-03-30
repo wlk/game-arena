@@ -2,7 +2,6 @@ package models
 
 import models.v1.Card
 import models.v1.Rank._
-import models.v1.Suit._
 
 /*
   Responsible for extracting information about what hands can be arranged from a list of cards.

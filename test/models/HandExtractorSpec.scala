@@ -5,109 +5,104 @@ import org.scalatest.{FlatSpec, Matchers}
 
 class HandExtractorSpec extends FlatSpec with Matchers {
 
+  val handExtractor = new HandExtractor
+
+  val straightFlushCards = List(Card(Jack, Clubs), Card(Ten, Clubs), Card(Nine, Clubs), Card(Eight, Clubs), Card(Seven, Clubs))
+  val fourOfAKindCards = List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Six, Spades), Card(Jack, Hearts))
+  val fullHouseCards = List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Jack, Spades), Card(Jack, Hearts))
+  val flushCards = List(Card(Queen, Clubs), Card(Ten, Clubs), Card(Nine, Clubs), Card(Eight, Clubs), Card(Seven, Clubs))
+  val straightCards = List(Card(King, Diamonds), Card(Queen, Clubs), Card(Jack, Spades), Card(Ten, Hearts), Card(Nine, Spades))
+  val threeOfAKind = List(Card(King, Diamonds), Card(King, Clubs), Card(King, Spades), Card(Ten, Hearts), Card(Nine, Spades))
+  val twoPairCards = List(Card(Queen, Hearts), Card(Queen, Clubs), Card(Eight, Hearts), Card(Eight, Spades), Card(Two, Clubs))
+  val onePairCards = List(Card(Seven, Spades), Card(Seven, Hearts), Card(King, Spades), Card(Four, Clubs), Card(Three, Spades))
+
   "HandExtractor" should "find straight flush" in {
-    val cards = List(Card(Jack, Clubs), Card(Ten, Clubs), Card(Nine, Clubs), Card(Eight, Clubs), Card(Seven, Clubs))
-    val handExtractor = new HandExtractor
-    handExtractor.isStraightFlush(cards) shouldBe true
-    handExtractor.isFourOfAKind(cards) shouldBe false
-    handExtractor.isFullHouse(cards) shouldBe false
-    handExtractor.isFlush(cards) shouldBe false
-    handExtractor.isStraight(cards) shouldBe false
-    handExtractor.isThreeOfAKind(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isOnePair(cards) shouldBe false
+    handExtractor.isStraightFlush(straightFlushCards) shouldBe true
+    handExtractor.isFourOfAKind(straightFlushCards) shouldBe false
+    handExtractor.isFullHouse(straightFlushCards) shouldBe false
+    handExtractor.isFlush(straightFlushCards) shouldBe false
+    handExtractor.isStraight(straightFlushCards) shouldBe false
+    handExtractor.isThreeOfAKind(straightFlushCards) shouldBe false
+    handExtractor.isTwoPair(straightFlushCards) shouldBe false
+    handExtractor.isOnePair(straightFlushCards) shouldBe false
   }
 
   it should "find four of a kind" in {
-    val handExtractor = new HandExtractor
-    val cards = List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Six, Spades), Card(Jack, Hearts))
-    handExtractor.isStraightFlush(cards) shouldBe false
-    handExtractor.isFourOfAKind(cards) shouldBe true
-    handExtractor.isFullHouse(cards) shouldBe false
-    handExtractor.isFlush(cards) shouldBe false
-    handExtractor.isStraight(cards) shouldBe false
-    handExtractor.isThreeOfAKind(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isOnePair(cards) shouldBe false
+    handExtractor.isStraightFlush(fourOfAKindCards) shouldBe false
+    handExtractor.isFourOfAKind(fourOfAKindCards) shouldBe true
+    handExtractor.isFullHouse(fourOfAKindCards) shouldBe false
+    handExtractor.isFlush(fourOfAKindCards) shouldBe false
+    handExtractor.isStraight(fourOfAKindCards) shouldBe false
+    handExtractor.isThreeOfAKind(fourOfAKindCards) shouldBe false
+    handExtractor.isTwoPair(fourOfAKindCards) shouldBe false
+    handExtractor.isOnePair(fourOfAKindCards) shouldBe false
   }
 
   it should "find full house" in {
-    val handExtractor = new HandExtractor
-    val cards = List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Jack, Spades), Card(Jack, Hearts))
-    handExtractor.isStraightFlush(cards) shouldBe false
-    handExtractor.isFourOfAKind(cards) shouldBe false
-    handExtractor.isFullHouse(cards) shouldBe true
-    handExtractor.isFlush(cards) shouldBe false
-    handExtractor.isStraight(cards) shouldBe false
-    handExtractor.isThreeOfAKind(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isOnePair(cards) shouldBe false
+    handExtractor.isStraightFlush(fullHouseCards) shouldBe false
+    handExtractor.isFourOfAKind(fullHouseCards) shouldBe false
+    handExtractor.isFullHouse(fullHouseCards) shouldBe true
+    handExtractor.isFlush(fullHouseCards) shouldBe false
+    handExtractor.isStraight(fullHouseCards) shouldBe false
+    handExtractor.isThreeOfAKind(fullHouseCards) shouldBe false
+    handExtractor.isTwoPair(fullHouseCards) shouldBe false
+    handExtractor.isOnePair(fullHouseCards) shouldBe false
   }
 
   it should "find flush" in {
-    val cards = List(Card(Queen, Clubs), Card(Ten, Clubs), Card(Nine, Clubs), Card(Eight, Clubs), Card(Seven, Clubs))
-    val handExtractor = new HandExtractor
-    handExtractor.isStraightFlush(cards) shouldBe false
-    handExtractor.isFourOfAKind(cards) shouldBe false
-    handExtractor.isFullHouse(cards) shouldBe false
-    handExtractor.isFlush(cards) shouldBe true
-    handExtractor.isStraight(cards) shouldBe false
-    handExtractor.isThreeOfAKind(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isOnePair(cards) shouldBe false
+    handExtractor.isStraightFlush(flushCards) shouldBe false
+    handExtractor.isFourOfAKind(flushCards) shouldBe false
+    handExtractor.isFullHouse(flushCards) shouldBe false
+    handExtractor.isFlush(flushCards) shouldBe true
+    handExtractor.isStraight(flushCards) shouldBe false
+    handExtractor.isThreeOfAKind(flushCards) shouldBe false
+    handExtractor.isTwoPair(flushCards) shouldBe false
+    handExtractor.isOnePair(flushCards) shouldBe false
   }
 
   it should "find straight" in {
-    val cards = List(Card(King, Diamonds), Card(Queen, Clubs), Card(Jack, Spades), Card(Ten, Hearts), Card(Nine, Spades))
-    val handExtractor = new HandExtractor
-    handExtractor.isStraightFlush(cards) shouldBe false
-    handExtractor.isFourOfAKind(cards) shouldBe false
-    handExtractor.isFullHouse(cards) shouldBe false
-    handExtractor.isFlush(cards) shouldBe false
-    handExtractor.isStraight(cards) shouldBe true
-    handExtractor.isThreeOfAKind(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isOnePair(cards) shouldBe false
+    handExtractor.isStraightFlush(straightCards) shouldBe false
+    handExtractor.isFourOfAKind(straightCards) shouldBe false
+    handExtractor.isFullHouse(straightCards) shouldBe false
+    handExtractor.isFlush(straightCards) shouldBe false
+    handExtractor.isStraight(straightCards) shouldBe true
+    handExtractor.isThreeOfAKind(straightCards) shouldBe false
+    handExtractor.isTwoPair(straightCards) shouldBe false
+    handExtractor.isOnePair(straightCards) shouldBe false
   }
 
   it should "find three of a kind" in {
-    val cards = List(Card(King, Diamonds), Card(King, Clubs), Card(King, Spades), Card(Ten, Hearts), Card(Nine, Spades))
-    val handExtractor = new HandExtractor
-    handExtractor.isStraightFlush(cards) shouldBe false
-    handExtractor.isFourOfAKind(cards) shouldBe false
-    handExtractor.isFullHouse(cards) shouldBe false
-    handExtractor.isFlush(cards) shouldBe false
-    handExtractor.isStraight(cards) shouldBe false
-    handExtractor.isThreeOfAKind(cards) shouldBe true
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isOnePair(cards) shouldBe false
+    handExtractor.isStraightFlush(threeOfAKind) shouldBe false
+    handExtractor.isFourOfAKind(threeOfAKind) shouldBe false
+    handExtractor.isFullHouse(threeOfAKind) shouldBe false
+    handExtractor.isFlush(threeOfAKind) shouldBe false
+    handExtractor.isStraight(threeOfAKind) shouldBe false
+    handExtractor.isThreeOfAKind(threeOfAKind) shouldBe true
+    handExtractor.isTwoPair(threeOfAKind) shouldBe false
+    handExtractor.isTwoPair(threeOfAKind) shouldBe false
+    handExtractor.isOnePair(threeOfAKind) shouldBe false
   }
 
   it should "find two pair" in {
-    val cards = List(Card(Queen, Hearts), Card(Queen, Clubs), Card(Eight, Hearts), Card(Eight, Spades), Card(Two, Clubs))
-    val handExtractor = new HandExtractor
-    handExtractor.isStraightFlush(cards) shouldBe false
-    handExtractor.isFourOfAKind(cards) shouldBe false
-    handExtractor.isFullHouse(cards) shouldBe false
-    handExtractor.isFlush(cards) shouldBe false
-    handExtractor.isStraight(cards) shouldBe false
-    handExtractor.isThreeOfAKind(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe true
-    handExtractor.isOnePair(cards) shouldBe false
+    handExtractor.isStraightFlush(twoPairCards) shouldBe false
+    handExtractor.isFourOfAKind(twoPairCards) shouldBe false
+    handExtractor.isFullHouse(twoPairCards) shouldBe false
+    handExtractor.isFlush(twoPairCards) shouldBe false
+    handExtractor.isStraight(twoPairCards) shouldBe false
+    handExtractor.isThreeOfAKind(twoPairCards) shouldBe false
+    handExtractor.isTwoPair(twoPairCards) shouldBe true
+    handExtractor.isOnePair(twoPairCards) shouldBe false
   }
 
   it should "find one pair" in {
-    val cards = List(Card(Seven, Spades), Card(Seven, Hearts), Card(King, Spades), Card(Four, Clubs), Card(Three, Spades))
-    val handExtractor = new HandExtractor
-    handExtractor.isStraightFlush(cards) shouldBe false
-    handExtractor.isFourOfAKind(cards) shouldBe false
-    handExtractor.isFullHouse(cards) shouldBe false
-    handExtractor.isFlush(cards) shouldBe false
-    handExtractor.isStraight(cards) shouldBe false
-    handExtractor.isThreeOfAKind(cards) shouldBe false
-    handExtractor.isTwoPair(cards) shouldBe false
-    handExtractor.isOnePair(cards) shouldBe true
+    handExtractor.isStraightFlush(onePairCards) shouldBe false
+    handExtractor.isFourOfAKind(onePairCards) shouldBe false
+    handExtractor.isFullHouse(onePairCards) shouldBe false
+    handExtractor.isFlush(onePairCards) shouldBe false
+    handExtractor.isStraight(onePairCards) shouldBe false
+    handExtractor.isThreeOfAKind(onePairCards) shouldBe false
+    handExtractor.isTwoPair(onePairCards) shouldBe false
+    handExtractor.isOnePair(onePairCards) shouldBe true
   }
 
 }
