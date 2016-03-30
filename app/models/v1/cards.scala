@@ -75,6 +75,14 @@ case class Card(rank: Rank, suit: Suit) {
 
 }
 
+object Card {
+
+  implicit class CardListSorter(c: List[Card]) {
+    def sortedByRank = c.sortWith((c1, c2) => c1 > c2)
+  }
+
+}
+
 case class Deck(cards: List[Card]) {
   // for now using List here, maybe Set is better (?)
   require(isValid)

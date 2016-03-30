@@ -29,17 +29,28 @@ class HandExtractor {
     }
   }
 
-  def isFourOfAKind(cards: List[Card]): Option[FourOfAKind] = {
+  def getFourOfAKind(cards: List[Card]): Option[FourOfAKind] = {
     cards.groupBy(_.rank).find(_._2.size == 4).map(cards => FourOfAKind(cards._2))
   }
 
-  def isFullHouse(cards: List[Card]): Boolean = {
-    cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(2, 3)
+  def getFullHouse(cards: List[Card]): Option[FullHouse] = {
+    val cardsByRank = cards.groupBy(_.rank)
+
+    cardsByRank.find(_._2.size == 3) match {
+      case Some((rank, threeCards)) => cardsByRank.find(_._2.size == 2) match {
+        case Some((r, twoCards)) => Some(FullHouse(threeCards ++ twoCards))
+        case None                => None
+      }
+      case None => None
+    }
   }
 
-  def isFlush(cards: List[Card]): Boolean = {
-    getStraightFlush(cards).isEmpty &&
-      cards.groupBy(_.suit).mapValues(_.size).exists(_._2 == 5)
+  def getFlush(cards: List[Card]): Option[Flush] = {
+    if (getStraightFlush(cards).isEmpty) {
+      cards.groupBy(_.suit).find(_._2.size == 5).map(c => Flush(c._2.sortedByRank))
+    } else {
+      None
+    }
   }
 
   def isStraight(cards: List[Card]): Boolean = {
