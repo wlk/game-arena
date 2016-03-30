@@ -27,4 +27,15 @@ class HandExtractor {
     cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(2, 3)
   }
 
+  def isFlush(cards: List[Card]): Boolean = {
+    !isStraightFlush(cards) &&
+      cards.groupBy(_.suit).mapValues(_.size).exists(_._2 == 5)
+  }
+
+  def isStraight(cards: List[Card]): Boolean = {
+    areAllConsecutive(cards) &&
+      cards.size == 5 &&
+      !isStraightFlush(cards)
+  }
+
 }
