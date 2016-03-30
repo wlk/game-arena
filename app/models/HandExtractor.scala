@@ -38,4 +38,12 @@ class HandExtractor {
       !isStraightFlush(cards)
   }
 
+  def isThreeOfAKind(cards: List[Card]): Boolean = {
+    cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(1, 1, 3)
+  }
+
+  def isTwoPair(cards: List[Card]): Boolean = {
+    cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(1, 2, 2)
+  }
+
 }

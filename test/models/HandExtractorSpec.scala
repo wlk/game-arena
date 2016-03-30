@@ -104,4 +104,28 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.isStraight(Random.shuffle(cards)) shouldBe false
   }
 
+  it should "find three of a kind" in {
+    val cards = List(Card(King, Diamonds), Card(King, Clubs), Card(King, Spades), Card(Ten, Hearts), Card(Nine, Spades))
+    val handExtractor = new HandExtractor
+    handExtractor.isThreeOfAKind(cards) shouldBe true
+    handExtractor.isThreeOfAKind(Random.shuffle(cards)) shouldBe true
+  }
+
+  it should "not find three of a kind when it should find full house or four of a kind" in {
+    val handExtractor = new HandExtractor
+    val cardsFullHouse = List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Jack, Spades), Card(Jack, Hearts))
+    handExtractor.isFullHouse(cardsFullHouse) shouldBe true
+    handExtractor.isThreeOfAKind(cardsFullHouse) shouldBe false
+
+    val cardsFourOfAKind = List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Six, Spades), Card(Jack, Hearts))
+    handExtractor.isFourOfAKind(cardsFourOfAKind) shouldBe true
+    handExtractor.isThreeOfAKind(cardsFourOfAKind) shouldBe false
+  }
+
+  it should "not find three of a kind" in {
+    val handExtractor = new HandExtractor
+    val cards = List(Card(Six, Clubs), Card(Seven, Diamonds), Card(Eight, Hearts), Card(Jack, Spades), Card(Jack, Hearts))
+    handExtractor.isThreeOfAKind(cards) shouldBe false
+  }
+
 }
