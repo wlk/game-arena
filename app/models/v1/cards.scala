@@ -1,6 +1,8 @@
 package models.v1
 
 import scala.util.Random
+import models.v1.Rank._
+import models.v1.Suit._
 
 object Suit {
   val suits = List(Clubs, Spades, Hearts, Diamonds)
@@ -63,9 +65,6 @@ case object Queen extends Rank("Q")
 case object King extends Rank("K")
 
 case object Ace extends Rank("A")
-
-import models.v1.Rank._
-import models.v1.Suit._
 
 case class Card(rank: Rank, suit: Suit) {
   def isSameSuit(other: Card): Boolean = this.suit == other.suit
