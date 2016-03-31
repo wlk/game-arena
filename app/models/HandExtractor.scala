@@ -20,9 +20,7 @@ class HandExtractor {
   private def areAllSameSuit(cards: List[Card]): Boolean = cards.map(_.suit).distinct.size == 1
 
   def getStraightFlush(cards: List[Card]): Option[StraightFlush] = {
-    if (areAllConsecutive(cards) &&
-      areAllSameSuit(cards) &&
-      cards.size == 5) {
+    if (areAllConsecutive(cards) && areAllSameSuit(cards) && cards.size == 5) {
       Some(StraightFlush(cards))
     } else {
       None
