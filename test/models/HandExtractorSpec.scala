@@ -11,20 +11,20 @@ class HandExtractorSpec extends FlatSpec with Matchers {
   val fourOfAKindCards = List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Six, Spades), Card(Jack, Hearts))
   val fullHouseCards = List(Card(Jack, Spades), Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Jack, Hearts))
   val flushCards = List(Card(Seven, Clubs), Card(Nine, Clubs), Card(Queen, Clubs), Card(Ten, Clubs), Card(Eight, Clubs))
-  val straightCards = List(Card(King, Diamonds), Card(Queen, Clubs), Card(Jack, Spades), Card(Ten, Hearts), Card(Nine, Spades))
-  val threeOfAKind = List(Card(King, Diamonds), Card(King, Clubs), Card(King, Spades), Card(Ten, Hearts), Card(Nine, Spades))
-  val twoPairCards = List(Card(Queen, Hearts), Card(Queen, Clubs), Card(Eight, Hearts), Card(Eight, Spades), Card(Two, Clubs))
-  val onePairCards = List(Card(Seven, Spades), Card(Seven, Hearts), Card(King, Spades), Card(Four, Clubs), Card(Three, Spades))
+  val straightCards = List(Card(Queen, Clubs), Card(King, Diamonds), Card(Jack, Spades), Card(Ten, Hearts), Card(Nine, Spades))
+  val threeOfAKindCards = List(Card(King, Diamonds), Card(King, Clubs), Card(Ten, Spades), Card(Nine, Hearts), Card(King, Spades))
+  val twoPairCards = List(Card(Queen, Hearts), Card(Two, Clubs), Card(Eight, Hearts), Card(Eight, Spades), Card(Queen, Clubs))
+  val onePairCards = List(Card(Seven, Spades), Card(Four, Hearts), Card(King, Spades), Card(Seven, Clubs), Card(Three, Spades))
 
   "HandExtractor" should "find straight flush" in {
     handExtractor.getStraightFlush(straightFlushCards) shouldBe Some(StraightFlush(straightFlushCards))
     handExtractor.getFourOfAKind(straightFlushCards) shouldBe None
     handExtractor.getFullHouse(straightFlushCards) shouldBe None
     handExtractor.getFlush(straightFlushCards) shouldBe None
-    handExtractor.isStraight(straightFlushCards) shouldBe false
-    handExtractor.isThreeOfAKind(straightFlushCards) shouldBe false
-    handExtractor.isTwoPair(straightFlushCards) shouldBe false
-    handExtractor.isOnePair(straightFlushCards) shouldBe false
+    handExtractor.getStraight(straightFlushCards) shouldBe None
+    handExtractor.getThreeOfAKind(straightFlushCards) shouldBe None
+    handExtractor.getTwoPairs(straightFlushCards) shouldBe None
+    handExtractor.getOnePair(straightFlushCards) shouldBe None
   }
 
   it should "find four of a kind" in {
@@ -32,10 +32,10 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.getFourOfAKind(fourOfAKindCards) shouldBe Some(FourOfAKind(List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Six, Spades))))
     handExtractor.getFullHouse(fourOfAKindCards) shouldBe None
     handExtractor.getFlush(fourOfAKindCards) shouldBe None
-    handExtractor.isStraight(fourOfAKindCards) shouldBe false
-    handExtractor.isThreeOfAKind(fourOfAKindCards) shouldBe false
-    handExtractor.isTwoPair(fourOfAKindCards) shouldBe false
-    handExtractor.isOnePair(fourOfAKindCards) shouldBe false
+    handExtractor.getStraight(fourOfAKindCards) shouldBe None
+    handExtractor.getThreeOfAKind(fourOfAKindCards) shouldBe None
+    handExtractor.getTwoPairs(fourOfAKindCards) shouldBe None
+    handExtractor.getOnePair(fourOfAKindCards) shouldBe None
   }
 
   it should "find full house" in {
@@ -43,10 +43,10 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.getFourOfAKind(fullHouseCards) shouldBe None
     handExtractor.getFullHouse(fullHouseCards) shouldBe Some(FullHouse(List(Card(Six, Clubs), Card(Six, Diamonds), Card(Six, Hearts), Card(Jack, Spades), Card(Jack, Hearts))))
     handExtractor.getFlush(fullHouseCards) shouldBe None
-    handExtractor.isStraight(fullHouseCards) shouldBe false
-    handExtractor.isThreeOfAKind(fullHouseCards) shouldBe false
-    handExtractor.isTwoPair(fullHouseCards) shouldBe false
-    handExtractor.isOnePair(fullHouseCards) shouldBe false
+    handExtractor.getStraight(fullHouseCards) shouldBe None
+    handExtractor.getThreeOfAKind(fullHouseCards) shouldBe None
+    handExtractor.getTwoPairs(fullHouseCards) shouldBe None
+    handExtractor.getOnePair(fullHouseCards) shouldBe None
   }
 
   it should "find flush" in {
@@ -54,10 +54,10 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.getFourOfAKind(flushCards) shouldBe None
     handExtractor.getFullHouse(flushCards) shouldBe None
     handExtractor.getFlush(flushCards) shouldBe Some(Flush(List(Card(Queen, Clubs), Card(Ten, Clubs), Card(Nine, Clubs), Card(Eight, Clubs), Card(Seven, Clubs))))
-    handExtractor.isStraight(flushCards) shouldBe false
-    handExtractor.isThreeOfAKind(flushCards) shouldBe false
-    handExtractor.isTwoPair(flushCards) shouldBe false
-    handExtractor.isOnePair(flushCards) shouldBe false
+    handExtractor.getStraight(flushCards) shouldBe None
+    handExtractor.getThreeOfAKind(flushCards) shouldBe None
+    handExtractor.getTwoPairs(flushCards) shouldBe None
+    handExtractor.getOnePair(flushCards) shouldBe None
   }
 
   it should "find straight" in {
@@ -65,22 +65,21 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.getFourOfAKind(straightCards) shouldBe None
     handExtractor.getFullHouse(straightCards) shouldBe None
     handExtractor.getFlush(straightCards) shouldBe None
-    handExtractor.isStraight(straightCards) shouldBe true
-    handExtractor.isThreeOfAKind(straightCards) shouldBe false
-    handExtractor.isTwoPair(straightCards) shouldBe false
-    handExtractor.isOnePair(straightCards) shouldBe false
+    handExtractor.getStraight(straightCards) shouldBe Some(Straight(List(Card(King, Diamonds), Card(Queen, Clubs), Card(Jack, Spades), Card(Ten, Hearts), Card(Nine, Spades))))
+    handExtractor.getThreeOfAKind(straightCards) shouldBe None
+    handExtractor.getTwoPairs(straightCards) shouldBe None
+    handExtractor.getOnePair(straightCards) shouldBe None
   }
 
   it should "find three of a kind" in {
-    handExtractor.getStraightFlush(threeOfAKind) shouldBe None
-    handExtractor.getFourOfAKind(threeOfAKind) shouldBe None
-    handExtractor.getFullHouse(threeOfAKind) shouldBe None
-    handExtractor.getFlush(threeOfAKind) shouldBe None
-    handExtractor.isStraight(threeOfAKind) shouldBe false
-    handExtractor.isThreeOfAKind(threeOfAKind) shouldBe true
-    handExtractor.isTwoPair(threeOfAKind) shouldBe false
-    handExtractor.isTwoPair(threeOfAKind) shouldBe false
-    handExtractor.isOnePair(threeOfAKind) shouldBe false
+    handExtractor.getStraightFlush(threeOfAKindCards) shouldBe None
+    handExtractor.getFourOfAKind(threeOfAKindCards) shouldBe None
+    handExtractor.getFullHouse(threeOfAKindCards) shouldBe None
+    handExtractor.getFlush(threeOfAKindCards) shouldBe None
+    handExtractor.getStraight(threeOfAKindCards) shouldBe None
+    handExtractor.getThreeOfAKind(threeOfAKindCards) shouldBe Some(ThreeOfAKind(List(Card(King, Diamonds), Card(King, Clubs), Card(King, Spades))))
+    handExtractor.getTwoPairs(threeOfAKindCards) shouldBe None
+    handExtractor.getOnePair(threeOfAKindCards) shouldBe None
   }
 
   it should "find two pair" in {
@@ -88,10 +87,10 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.getFourOfAKind(twoPairCards) shouldBe None
     handExtractor.getFullHouse(twoPairCards) shouldBe None
     handExtractor.getFlush(twoPairCards) shouldBe None
-    handExtractor.isStraight(twoPairCards) shouldBe false
-    handExtractor.isThreeOfAKind(twoPairCards) shouldBe false
-    handExtractor.isTwoPair(twoPairCards) shouldBe true
-    handExtractor.isOnePair(twoPairCards) shouldBe false
+    handExtractor.getStraight(twoPairCards) shouldBe None
+    handExtractor.getThreeOfAKind(twoPairCards) shouldBe None
+    handExtractor.getTwoPairs(twoPairCards) shouldBe Some(TwoPairs(List(Card(Queen, Hearts), Card(Queen, Clubs), Card(Eight, Hearts), Card(Eight, Spades))))
+    handExtractor.getOnePair(twoPairCards) shouldBe None
   }
 
   it should "find one pair" in {
@@ -99,10 +98,10 @@ class HandExtractorSpec extends FlatSpec with Matchers {
     handExtractor.getFourOfAKind(onePairCards) shouldBe None
     handExtractor.getFullHouse(onePairCards) shouldBe None
     handExtractor.getFlush(onePairCards) shouldBe None
-    handExtractor.isStraight(onePairCards) shouldBe false
-    handExtractor.isThreeOfAKind(onePairCards) shouldBe false
-    handExtractor.isTwoPair(onePairCards) shouldBe false
-    handExtractor.isOnePair(onePairCards) shouldBe true
+    handExtractor.getStraight(onePairCards) shouldBe None
+    handExtractor.getThreeOfAKind(onePairCards) shouldBe None
+    handExtractor.getTwoPairs(onePairCards) shouldBe None
+    handExtractor.getOnePair(onePairCards) shouldBe Some(OnePair(List(Card(Seven, Spades), Card(Seven, Clubs))))
   }
 
 }

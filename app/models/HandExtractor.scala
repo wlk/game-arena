@@ -53,22 +53,44 @@ class HandExtractor {
     }
   }
 
-  def isStraight(cards: List[Card]): Boolean = {
-    getStraightFlush(cards).isEmpty &&
-      areAllConsecutive(cards) &&
-      cards.size == 5
+  def getStraight(cards: List[Card]): Option[Straight] = {
+    if (getStraightFlush(cards).isEmpty && areAllConsecutive(cards) && cards.size == 5) {
+      Some(Straight(cards.sortedByRank))
+    } else {
+      None
+    }
   }
 
-  def isThreeOfAKind(cards: List[Card]): Boolean = {
-    cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(1, 1, 3)
+  def getThreeOfAKind(cards: List[Card]): Option[ThreeOfAKind] = {
+    val cardsGroupedByRank = cards.groupBy(_.rank)
+    if (cardsGroupedByRank.mapValues(_.size).values.toList.sorted == List(1, 1, 3)) {
+      cardsGroupedByRank.find(_._2.size == 3).map {
+        case (r, c) => ThreeOfAKind(c)
+      }
+    } else {
+      None
+    }
+
   }
 
-  def isTwoPair(cards: List[Card]): Boolean = {
-    cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(1, 2, 2)
+  def getTwoPairs(cards: List[Card]): Option[TwoPairs] = {
+    val cardsGroupedByRank = cards.groupBy(_.rank)
+    if (cardsGroupedByRank.mapValues(_.size).values.toList.sorted == List(1, 2, 2)) {
+      val c = cardsGroupedByRank.filter(_._2.size == 2).values.flatten.toList
+      Some(TwoPairs(c.sortedByRank))
+    } else {
+      None
+    }
   }
 
-  def isOnePair(cards: List[Card]): Boolean = {
-    cards.groupBy(_.rank).mapValues(_.size).values.toList.sorted == List(1, 1, 1, 2)
+  def getOnePair(cards: List[Card]): Option[OnePair] = {
+    val cardsGroupedByRank = cards.groupBy(_.rank)
+    if (cardsGroupedByRank.mapValues(_.size).values.toList.sorted == List(1, 1, 1, 2)) {
+      cardsGroupedByRank.find(_._2.size == 2).map {
+        case (r, c) => OnePair(c)
+      }
+    } else {
+      None
+    }
   }
-
 }
