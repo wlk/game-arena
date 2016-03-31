@@ -30,15 +30,19 @@ class HandExtractor {
   }
 
   def getFourOfAKind(cards: List[Card]): Option[FourOfAKind] = {
-    cards.groupBy(_.rank).find(_._2.size == 4).map(cards => FourOfAKind(cards._2))
+    cards.groupBy(_.rank).find {
+      case (_, c) => c.size == 4
+    }.map(cards => FourOfAKind(cards._2))
   }
 
   def getFullHouse(cards: List[Card]): Option[FullHouse] = {
     val cardsByRank = cards.groupBy(_.rank)
 
-    cardsByRank.find(_._2.size == 3) match {
-      case Some((rank, threeCards)) => cardsByRank.find(_._2.size == 2) match {
-        case Some((r, twoCards)) => Some(FullHouse(threeCards ++ twoCards))
+    cardsByRank.find {
+      case (_, c) => c.size == 3
+    } match {
+      case Some((_, threeCards)) => cardsByRank.find(_._2.size == 2) match {
+        case Some((_, twoCards)) => Some(FullHouse(threeCards ++ twoCards))
         case None                => None
       }
       case None => None
@@ -47,7 +51,9 @@ class HandExtractor {
 
   def getFlush(cards: List[Card]): Option[Flush] = {
     if (getStraightFlush(cards).isEmpty) {
-      cards.groupBy(_.suit).find(_._2.size == 5).map(c => Flush(c._2.sortedByRank))
+      cards.groupBy(_.suit).find {
+        case (_, c) => c.size == 5
+      }.map(c => Flush(c._2.sortedByRank))
     } else {
       None
     }
@@ -64,8 +70,10 @@ class HandExtractor {
   def getThreeOfAKind(cards: List[Card]): Option[ThreeOfAKind] = {
     val cardsGroupedByRank = cards.groupBy(_.rank)
     if (cardsGroupedByRank.mapValues(_.size).values.toList.sorted == List(1, 1, 3)) {
-      cardsGroupedByRank.find(_._2.size == 3).map {
-        case (r, c) => ThreeOfAKind(c)
+      cardsGroupedByRank.find {
+        case (_, c) => c.size == 3
+      }.map {
+        case (_, c) => ThreeOfAKind(c)
       }
     } else {
       None
@@ -76,7 +84,9 @@ class HandExtractor {
   def getTwoPairs(cards: List[Card]): Option[TwoPairs] = {
     val cardsGroupedByRank = cards.groupBy(_.rank)
     if (cardsGroupedByRank.mapValues(_.size).values.toList.sorted == List(1, 2, 2)) {
-      val c = cardsGroupedByRank.filter(_._2.size == 2).values.flatten.toList
+      val c = cardsGroupedByRank.filter {
+        case (_, groupedCards) => groupedCards.size == 2
+      }.values.flatten.toList
       Some(TwoPairs(c.sortedByRank))
     } else {
       None
@@ -86,8 +96,10 @@ class HandExtractor {
   def getOnePair(cards: List[Card]): Option[OnePair] = {
     val cardsGroupedByRank = cards.groupBy(_.rank)
     if (cardsGroupedByRank.mapValues(_.size).values.toList.sorted == List(1, 1, 1, 2)) {
-      cardsGroupedByRank.find(_._2.size == 2).map {
-        case (r, c) => OnePair(c)
+      cardsGroupedByRank.find {
+        case (_, c) => c.size == 2
+      }.map {
+        case (_, c) => OnePair(c)
       }
     } else {
       None
