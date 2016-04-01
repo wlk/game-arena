@@ -91,7 +91,13 @@ case class Deck(cards: List[Card]) {
 
   def shuffle: Deck = new Deck(Random.shuffle(cards))
 
-  def draw: (Option[Card], Deck) = (cards.headOption, new Deck(cards.tail))
+  def draw: (Card, Deck) = (cards.head, new Deck(cards.tail))
+
+  def draw2: (List[Card], Deck) = drawN(2)
+
+  def draw5: (List[Card], Deck) = drawN(5)
+
+  private def drawN(n: Int) = (cards.take(n), new Deck(cards.drop(n)))
 
   def isValid = cards.distinct == cards // checking for size is redundant (?)
 }

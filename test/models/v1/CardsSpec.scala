@@ -58,12 +58,9 @@ class CardsSpec extends FlatSpec with Matchers {
   it should "remove drawn card from the deck" in {
     val deck = Deck.fullDeck.shuffle
 
-    val (maybeCardFromTheTop, deckAfterDrawing) = deck.draw
+    val (card, deckAfterDrawing) = deck.draw
 
-    maybeCardFromTheTop match {
-      case None       => fail
-      case Some(card) => deckAfterDrawing.cards should not contain card
-    }
+    deckAfterDrawing.cards should not contain card
   }
 
   it should "detect invalid decks" in {

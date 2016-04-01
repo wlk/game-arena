@@ -10,7 +10,7 @@ import play.api.mvc._
 @Singleton
 class CardMatchController @Inject() extends Controller with JsonMarshalling {
   def draw5 = Action {
-    val cards = Deck.fullDeck.shuffle.cards.take(5)
+    val (cards, _) = Deck.fullDeck.shuffle.draw5
 
     Ok(Json.toJson(cards))
   }
