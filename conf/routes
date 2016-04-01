@@ -1,6 +1,7 @@
 # Routes
 
 GET        /cards/shuffled        controllers.DeckController.shuffled
+GET        /cards/draw5        controllers.CardMatchController.draw5
 GET        /game/state            controllers.GameController.gameState
 
 # Map static resources from the /public folder to the /assets URL path
