@@ -15,27 +15,27 @@ trait JsonMarshalling {
 
   implicit val deckFormat = Json.format[Deck]
 
-  implicit val formatStraight = Json.format[Straight]
-  implicit val formatTwoPairs = Json.format[TwoPairs]
-  implicit val formatThreeOfAKind = Json.format[ThreeOfAKind]
-  implicit val formatStraightFlush = Json.format[StraightFlush]
-  implicit val formatOnePair = Json.format[OnePair]
-  implicit val formatHighCard = Json.format[HighCard]
-  implicit val formatFullHouse = Json.format[FullHouse]
-  implicit val formatFlush = Json.format[Flush]
-  implicit val formatFourOfAKind = Json.format[FourOfAKind]
+  implicit val straightFlushFormat = Json.format[StraightFlush]
+  implicit val fourOfAKindFormat = Json.format[FourOfAKind]
+  implicit val fullHouseFormat = Json.format[FullHouse]
+  implicit val flushFormat = Json.format[Flush]
+  implicit val straightFormat = Json.format[Straight]
+  implicit val threeOfAKindFormat = Json.format[ThreeOfAKind]
+  implicit val twoPairsFormat = Json.format[TwoPairs]
+  implicit val onePairFormat = Json.format[OnePair]
+  implicit val highCardFormat = Json.format[HighCard]
 
-  implicit val formatHand = new Writes[Hand] {
+  implicit val handWrites = new Writes[Hand] {
     def writes(h: Hand) = h match {
-      case h: Straight      => formatStraight.writes(h)
-      case h: TwoPairs      => formatTwoPairs.writes(h)
-      case h: ThreeOfAKind  => formatThreeOfAKind.writes(h)
-      case h: StraightFlush => formatStraightFlush.writes(h)
-      case h: OnePair       => formatOnePair.writes(h)
-      case h: HighCard      => formatHighCard.writes(h)
-      case h: FullHouse     => formatFullHouse.writes(h)
-      case h: Flush         => formatFlush.writes(h)
-      case h: FourOfAKind   => formatFourOfAKind.writes(h)
+      case h: StraightFlush => straightFlushFormat.writes(h)
+      case h: FourOfAKind   => fourOfAKindFormat.writes(h)
+      case h: FullHouse     => fullHouseFormat.writes(h)
+      case h: Flush         => flushFormat.writes(h)
+      case h: Straight      => straightFormat.writes(h)
+      case h: ThreeOfAKind  => threeOfAKindFormat.writes(h)
+      case h: TwoPairs      => twoPairsFormat.writes(h)
+      case h: OnePair       => onePairFormat.writes(h)
+      case h: HighCard      => highCardFormat.writes(h)
     }
   }
 
